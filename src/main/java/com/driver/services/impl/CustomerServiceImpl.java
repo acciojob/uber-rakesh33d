@@ -33,6 +33,23 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void deleteCustomer(Integer customerId) {
 		// Delete customer without using deleteById function
+		Customer customer = customerRepository2.findById(customerId).get();
+		List<TripBooking> bookedTrips = customer.getTripBookingList();
+
+		//Now we will set the cab as available for each and every trip booked by this customer,
+		//who is going to be deleted
+
+		for(TripBooking trip : bookedTrips){
+			Driver driver = trip.getDriver();
+			Cab cab = driver.getCab();
+			cab.setAvailable(true);
+			driverRepository2.save(driver);
+			trip.setStatus(TripStatus.CANCELED);
+		}
+
+		//Now we will delete the customer from the repository and as a result of cascading effect trips will also
+		//be deleted
+		customerRepository2.delete(customer);
 
 	}
 
