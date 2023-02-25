@@ -4,32 +4,31 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TripBooking")
-public class TripBooking {
+public class TripBooking{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tripBookingId;
+    int tripBookingId;
 
-    private String fromLocation;
+    String fromLocation;
 
-    private String toLocation;
+    String toLocation;
 
-    private int distanceInKm;
+    int distanceInKm;
 
-    @Enumerated(value = EnumType.STRING)
-    private TripStatus status;
+    TripStatus status;
 
-    private int bill;
+    int bill;
 
 
     //For mapping to customer(parent)
     @ManyToOne
     @JoinColumn
-    private Customer customer;
+    Customer customer;
 
     //For mapping to driver(parent)
     @ManyToOne
     @JoinColumn
-    private Driver driver;
+    Driver driver;
 
     public TripBooking() {
 

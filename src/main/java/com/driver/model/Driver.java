@@ -6,25 +6,35 @@ import java.util.List;
 
 @Entity
 @Table(name = "Driver")
-public class Driver {
+public class Driver{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int driverId;
+    int driverId;
 
-    private String mobile;
+    String mobile;
 
-    private String password;
+    String password;
 
     //For mapping to tripBooking(Child)
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
-    private List<TripBooking> tripBookingList;
+    List<TripBooking> tripBookingList = new ArrayList<>();
 
     //For mapping to Cab(Parent)
     @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
-    private Cab cab;
+    Cab cab;
 
     public Driver() {
 
+    }
+
+
+
+    public Driver(int driverId, String mobile, String password, List<TripBooking> tripBookingList, Cab cab) {
+        this.driverId = driverId;
+        this.mobile = mobile;
+        this.password = password;
+        this.tripBookingList = tripBookingList;
+        this.cab = cab;
     }
 
     public int getDriverId() {

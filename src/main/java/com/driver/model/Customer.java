@@ -6,21 +6,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "Customer")
-public class Customer {
+public class Customer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int customerId;
+    int customerId;
 
-    private String mobile;
+    String mobile;
 
-    private String password;
+    String password;
 
     //For Mapping
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-     private List<TripBooking> tripBookingList;
+    List<TripBooking> tripBookingList = new ArrayList<>();
 
     public Customer() {
-
     }
 
     public Customer(int customerId, String mobile, String password, List<TripBooking> tripBookingList) {
